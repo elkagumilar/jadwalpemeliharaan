@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Perencana Pemeliharaan JTM 20 kV · UP3 Bulukumba</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#eef1f4;--card:#fff;--ink:#14283c;--mute:#5d6e7f;--line:#d5dce3;--acc:#0b5c8e;--k:#b3261e;--t:#a8670a;--s:#3d6b8a;--kb:#fbe7e5;--tb:#fcefd6;--sb:#e3eef5}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a25;--card:#172635;--ink:#e6edf3;--mute:#9bacbc;--line:#2a3d50;--acc:#5fb4e8;--k:#ff8a80;--t:#f2b95a;--s:#8fbad6;--kb:#3a1d1d;--tb:#3a2d12;--sb:#1b3347}}
+:root[data-theme="dark"]{--bg:#0f1a25;--card:#172635;--ink:#e6edf3;--mute:#9bacbc;--line:#2a3d50;--acc:#5fb4e8;--k:#ff8a80;--t:#f2b95a;--s:#8fbad6;--kb:#3a1d1d;--tb:#3a2d12;--sb:#1b3347}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+main{max-width:1060px;margin:0 auto;padding:20px 16px 48px}
+h1{font:600 28px/1.15 Fraunces,Georgia,serif;margin:0 0 4px}
+.sub{color:var(--mute);margin:0 0 18px;max-width:62ch}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:end;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:14px}
+label{display:flex;flex-direction:column;font-size:13px;color:var(--mute);gap:3px}
+select,input[type=number],button{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 9px}
+input[type=number]{width:70px}
+button{cursor:pointer}button:hover{border-color:var(--acc)}button.p{background:var(--acc);color:#fff;border-color:var(--acc)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.sp{flex:1}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.kpi div{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:6px;padding:10px 12px}
+.kpi b{display:block;font-size:26px;line-height:1.1}.kpi span{font-size:13px;color:var(--mute)}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.tabs button{border:0;border-bottom:3px solid transparent;border-radius:0;background:none;padding:8px 14px;color:var(--mute)}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--acc);font-weight:600}
+.w{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:14px}
+table{border-collapse:collapse;width:100%;min-width:720px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;color:var(--mute);font-weight:500;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+.wk td{background:var(--sb);font-weight:600;font-size:13px}
+.b{display:inline-block;border-radius:4px;padding:1px 8px;font-size:12.5px;font-weight:600}
+.K{background:var(--kb);color:var(--k)}.T{background:var(--tb);color:var(--t)}.S{background:var(--sb);color:var(--s)}
+.mt{color:var(--mute);font-size:13px}
+details{background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:8px;padding:0 14px}
+summary{cursor:pointer;padding:11px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+details[open] summary{border-bottom:1px solid var(--line);margin-bottom:8px}
+details ul{margin:0 0 12px;padding-left:20px}details li{margin:3px 0;max-width:80ch}
+.bars div{display:grid;grid-template-columns:150px 1fr 40px;gap:10px;align-items:center;margin:6px 0}
+.bars i{display:block;height:14px;background:var(--acc);border-radius:2px}
+.note{font-size:13px;color:var(--mute);margin-top:14px;max-width:80ch}
+.empty{padding:28px;text-align:center;color:var(--mute)}
+@media print{.bar,.tabs,.note{display:none}body{background:#fff}}
+</style></head><body><main>
+<h1>Perencana Pemeliharaan JTM 20 kV</h1>
+<p class="sub">UP3 Bulukumba. Jadwal dan rekomendasi pemeliharaan bulan berikutnya dihitung otomatis dari gangguan penyulang bulan sebelumnya.</p>
+<div class="bar">
+<label>Bulan data gangguan<select id="mo"></select></label>
+<label>Tim per ULP per hari<input id="tim" type="number" min="1" max="6" value="2"></label>
+<label>ULP<select id="ulp"></select></label>
+<span class="sp"></span>
+<label>Ganti sumber data (.xlsx)<input id="up" type="file" accept=".xlsx,.xlsm"></label>
+</div>
+<div class="kpi" id="kpi"></div>
+<div class="tabs" role="tablist"><button role="tab" data-t="j" aria-selected="true">Jadwal</button><button role="tab" data-t="r" aria-selected="false">Rekomendasi</button><button role="tab" data-t="p" aria-selected="false">Penyebab gangguan</button></div>
+<div id="v"></div>
+<p class="note" id="nt"></p>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const RAW=[[1,"JENEPONTO","P_ARUNGKEKE","P_ARUNGKEKE","KOMPONEN JTM","ISOLATOR TEMBUS","T",3.0,41],[1,"JENEPONTO","P_PASAR KARISA","REC_PAMANJENGAN JENEPONTO","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.2,76],[1,"TANETE","P_SALASAE","REC_DUMPU","BINATANG","KUSKUS KENA JTM","T",0.5,7],[2,"BANTAENG","P_LANGKASA","P_LANGKASA","PEKERJAAN PIHAK 3","RANGKA LAYANG-LAYANG KANDAS DI JTM","T",0.5,34],[2,"SINJAI","P_LITHA","REC_TALLE","POHON","TANGKAI DURIAN PATAH","T",0.4,5],[2,"TANETE","P_SALASAE","REC_DUMPU","ALAM","KEBAKARAN RUMAH","T",0.6,160],[2,"BANTAENG","P_LINGKAR","REC_MALILINGI","POHON","RANTING POHON CENGKEH KANDAS DI JTM","T",0.3,4],[3,"SINJAI","P_LITHA","GH SINJAI - OUT_BIKERU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,35],[3,"PANRITA LOPI","P_SALASAE","REC_DUMPU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,61],[3,"TANETE","P_SALASAE","REC_DUMPU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,14],[3,"SINJAI","P_MATUMPU","REC_MARANA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.4,15],[3,"TANETE","P_HARUE","P_HARUE","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.9,36],[4,"JENEPONTO","P_JENTAK","REC_KARAMAKA","BINATANG","BURUNG HANTU SAMBAR JTM","T",0.5,17],[4,"TANETE","P_SALASAE","REC_DUMPU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,9],[4,"JENEPONTO","P_PASAR KARISA","GH JENEPONTO - OUT_BANGKALA LOE","PEKERJAAN PIHAK 3","RANGKA LAYANG-LAYANG KANDAS DI TRAVES","T",1.2,61],[4,"JENEPONTO","P_ARUNGKEKE","P_ARUNGKEKE","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",4.5,51],[4,"JENEPONTO","P_PASAR KARISA","GH JENEPONTO - OUT_BANGKALA LOE","PEKERJAAN PIHAK 3","RANGKA LAYANG-LAYANG KANDAS DI TRAVES","T",0.3,61],[4,"JENEPONTO","P_PASAR KARISA","GH JENEPONTO - OUT_BANGKALA LOE","PEKERJAAN PIHAK 3","RANGKA LAYANG-LAYANG KANDAS DI TRAVES","P",2.8,61],[4,"TANETE","P_HARUE","P_HARUE","BINATANG","KUSKUS KANDAS DI JTM","T",2.6,7],[5,"TANETE","P_HARUE","P_HARUE","BINATANG","KUS KUS DI JTM","T",2.2,72],[5,"SINJAI","P_BONTOBULAENG","REC_MUNTE","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,9],[5,"TANETE","P_HARUE","P_HARUE","BINATANG","KUS KUS DI JTM","T",1.3,37],[6,"SINJAI","P_LITHA","P_LITHA","KOMPONEN JTM","LOS KONTAK DI DS INC_LITHA GH SINJAI","T",2.0,5],[6,"SINJAI","P_LITHA","GH SINJAI - OUT_BIKERU","KOMPONEN JTM","LOS KONTAK DI DS INC_LITHA GH SINJAI","T",0.8,45],[6,"KALUMPANG","P_SALASAE","REC_DUMPU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,10],[6,"TANETE","P_SALASAE","P_SALASAE","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",2.4,105],[7,"SELAYAR","P_BONTOMATENE","GH BATANGMATA - OUT_PAMATATA","POHON","DAHAN KELAPA MENYENTUH JARINGAN TM","P",79.6,10],[7,"KALUMPANG","P_SAPOLOHE","REC_LOBI","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.2,15],[7,"KALUMPANG","P_SAPOLOHE","REC_LOBI","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,34],[8,"BANTAENG","P_LINGKAR","REC_MALILINGI","BINATANG","ULAR DI JTM","T",0.3,34],[8,"BANTAENG","P_LINGKAR","REC_MALILINGI","BINATANG","ULAR DI JTM","T",0.3,34],[9,"KALUMPANG","P_UJUNGLOE","REC_TULEKKO","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,35],[9,"KALUMPANG","P_SAPOLOHE","REC_LOBI","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,10],[9,"JENEPONTO","P_PUNGGAWA","REC_PAKOKOA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,17],[9,"JENEPONTO","P_JENTAK","REC_BONTOTANGA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,44],[9,"KALUMPANG","P_UJUNGLOE","REC_TULEKKO","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,43],[10,"PANRITA LOPI","P_BINTARORE","P_BINTARORE","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",2.2,10],[10,"BANTAENG","P_LINGKAR","REC_MALILINGI","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,20],[10,"JENEPONTO","P_JENTAK","REC_BONTOTANGA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,36],[10,"KALUMPANG","P_SALASAE","REC_DUMPU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.4,137],[11,"TANETE","P_BONTOBULAENG","REC_TAPPALANG","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,35],[11,"JENEPONTO","P_BATANG","REC_TOGO-TOGO","POHON","DITEMUKAN POHON TUMBANG KENA JTM","P",0.3,49],[11,"JENEPONTO","P_JENTAK","REC_BONTOTANGA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,53],[12,"JENEPONTO","P_BATANG","P_BATANG","BINATANG","ULAR KANDAS DI TARFO","T",2.1,10],[12,"JENEPONTO","P_ARUNGKEKE","P_ARUNGKEKE","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",1.3,23],[12,"SINJAI","P_HARUE","REC_BALANG PESOANG","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,41],[12,"SINJAI","P_TIELINE TANGKA","REC_GUNUNG PERAK","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,16],[12,"PANRITA LOPI","P_BULO-BULO","P_BULO-BULO","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",1.5,5],[13,"SINJAI","P_LITHA","GH SINJAI - OUT_BIKERU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,32],[13,"PANRITA LOPI","P_SAPIRIA","P_SAPIRIA","KOMPONEN JTM","ISOLATOR ASPAN TEMBUS","P",160.5,7],[13,"TANETE","P_SALASAE","REC_DUMPU","PEKERJAAN PIHAK 3","GANGGUAN WARGA TEBANG POHON KENA JUTM","P",0.5,10],[13,"JENEPONTO","P_JENTAK","REC_BONTOTANGA","PEKERJAAN PIHAK 3","ANTENA WARGA JATUH KE JTM","T",0.3,52],[13,"JENEPONTO","P_TOLO","REC_BORO","POHON","GANGGUAN POHON MENYENTUH JUTM","T",1.2,17],[13,"JENEPONTO","P_TOLO","REC_BORO","POHON","GANGGUAN POHON MENYENTUH JUTM","T",1.0,17],[13,"JENEPONTO","P_TOLO","REC_BORO","POHON","GANGGUAN POHON MENYENTUH JUTM","T",0.0,17],[13,"JENEPONTO","P_TOLO","REC_GANRANG BATU","POHON","JTM PUTUS AKIBAT POHON BAMBU REBAH KE JTM","P",0.3,62],[13,"JENEPONTO","P_JENTAK","REC_BONTOTANGA","PEKERJAAN PIHAK 3","ANTENA WARGA JATUH KENA JTM","T",0.3,54],[13,"TANETE","P_SALASAE","REC_DUMPU","KOMPONEN JTM","JUMPER ASPAN PUTUS","T",0.5,34],[13,"PANRITA LOPI","P_SAPIRIA","P_SAPIRIA","KOMPONEN JTM","GANGGUAN ISOLATOR PECAH","P",25.2,7],[13,"BANTAENG","P_GUNUNG LOKA","REC_TALAKAYA","POHON","GANGGUAN POHON BAMBU REBAH KE JUTM","P",0.2,55],[14,"TANETE","P_SALASAE","REC_DUMPU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,10],[14,"JENEPONTO","P_PASAR KARISA","REC_PAMANJENGAN JENEPONTO","PEKERJAAN PIHAK 3","BALOK KAYU YANG DI BUAT PENOPAN JUTM","T",0.2,48],[14,"SELAYAR","P_TIELINE BENTENG_SELAYAR","REC_LAIYOLO","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",4.0,7],[14,"JENEPONTO","P_JENTAK","REC_KARAMAKA","TIANG","TIANG PATAH AKIBAT KOROSI","P",0.5,31],[14,"BANTAENG","P_GUNUNG LOKA","P_GUNUNG LOKA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",2.9,1],[14,"JENEPONTO","P_TOLO","REC_GANRANG BATU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,58],[14,"TANETE","P_SALASAE","REC_DUMPU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,15],[14,"BANTAENG","P_LINGKAR","REC_MALILINGI","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,42],[15,"JENEPONTO","P_TOLO","REC_BORO","KOMPONEN JTM","PENGIKAT ISOLATOR LEPAS DARI JTM KENA TRAVERS","P",0.3,69],[15,"PANRITA LOPI","P_BULO-BULO","P_BULO-BULO","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",1.3,2],[15,"JENEPONTO","P_JENTAK","REC_BONTOTANGA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,34],[15,"PANRITA LOPI","P_BULO-BULO","P_BULO-BULO","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",1.3,34],[15,"JENEPONTO","P_JENTAK","REC_BONTOTANGA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,34],[15,"JENEPONTO","P_JENTAK","REC_KARAMAKA","KOMPONEN JTM","ISOLATOR LEPAS DARI JTM","T",0.5,33],[15,"BANTAENG","P_LAMALAKA","REC_PASORONGI","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,72],[15,"TANETE","P_BONTOBULAENG","REC_TAPPALANG","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,48],[16,"SINJAI","P_BONTOBULAENG","REC_MUNTE","LAYANG LAYANG","LAYANGAN DI JTM","T",0.3,8],[16,"JENEPONTO","P_JENTAK","REC_BONTOTANGA","PEKERJAAN PIHAK 3","LES PLAN RUMAH KANDAS DI JTM","T",0.3,46],[17,"SINJAI","P_TIELINE TANGKA","P_TIELINE TANGKA","POHON","INDIKASI POHON DEKAT JTM","T",0.8,0],[17,"BANTAENG","P_GUNUNG LOKA","REC_TALAKAYA","KOMPONEN JTM","GANGGUAN JUTM PUTUS","P",0.2,58],[17,"PANRITA LOPI","P_BULO-BULO","P_BULO-BULO","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",2.1,2],[17,"PANRITA LOPI","P_BULO-BULO","P_BULO-BULO","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",1.6,2],[17,"BANTAENG","P_GUNUNG LOKA","P_GUNUNG LOKA","KOMPONEN JTM","JTM PUTUS","T",2.1,6],[17,"BANTAENG","P_LINGKAR","REC_MALILINGI","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,54],[18,"JENEPONTO","P_BATANG","REC_TOGO-TOGO","POHON","DAHAN MANGGA KANDAS DI JTM","T",0.3,77],[18,"JENEPONTO","P_PUNGGAWA","REC_PAKOKOA","PEKERJAAN PIHAK 3","GANGGUAN RANGKA LAYANGAN","T",0.5,18],[18,"JENEPONTO","P_TOLO","P_TOLO","PEKERJAAN PIHAK 3","GANGGUAN RANGKA LAYANGAN","T",3.6,20],[18,"JENEPONTO","P_TOLO","P_TOLO","PEKERJAAN PIHAK 3","GANGGUAN RANGKA LAYANGAN","T",3.5,20],[18,"JENEPONTO","P_TOLO","P_TOLO","PEKERJAAN PIHAK 3","GANGGUAN RANGKA LAYANGAN","P",50.2,20],[18,"JENEPONTO","P_JENTAK","REC_BONTOTANGA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,33],[18,"SELAYAR","P_TIELINE BENTENG_SELAYAR","REC_TANABAU","KOMPONEN JTM","KAWAT TERBURAI","T",4.0,12],[19,"PANRITA LOPI","P_BULO-BULO","GH BONTOMANAI - OUT_PARUKKU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,20],[19,"PANRITA LOPI","P_UJUNGLOE","REC_ELA-ELA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",1.1,51],[19,"JENEPONTO","P_JENTAK","REC_BONTOTANGA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,78],[20,"JENEPONTO","P_ARUNGKEKE","P_ARUNGKEKE","KOMPONEN JTM","ISOLATOR PECAH","T",2.1,25],[20,"JENEPONTO","P_ARUNGKEKE","P_ARUNGKEKE","KOMPONEN JTM","ISOLATOR PECAH","T",1.9,60],[21,"SINJAI","P_TIELINE TANGKA","P_TIELINE TANGKA","POHON","INDIKASI POHON MENDEKATI JTM","T",1.4,24],[21,"SINJAI","P_TIELINE TANGKA","REC_GUNUNG PERAK","POHON","INDIKASI POHON MENDEKATI JTM","T",0.4,11],[21,"SELAYAR","P_BONTOMANAI_SELAYAR","REC_CINIMABELLA","POHON","DAHAN KELAPA KANDAS DI JTM","T",26.1,3],[23,"KALUMPANG","P_UJUNGLOE","REC_TULEKKO","BINATANG","BURUNG KANDAS DI JUMPER SECT_HILA HILA","P",0.3,64],[24,"JENEPONTO","P_PUNGGAWA","REC_PAKOKOA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,22],[24,"JENEPONTO","P_PUNGGAWA","REC_PAKOKOA","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,15],[24,"JENEPONTO","P_PUNGGAWA","REC_PAKOKOA","KOMPONEN JTM","PATRON FCO TERBAKAR","T",0.5,8],[24,"JENEPONTO","P_ARUNGKEKE","REC_BONTANG","POHON","POHON TUMBANG KENA JTM","P",0.4,45],[25,"SINJAI","P_TIELINE TANGKA","GH PLTA TANGKA - OUT_TASILILU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",1.7,13],[25,"BANTAENG","P_LEMBANG","P_LEMBANG","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",3.5,10],[25,"BANTAENG","P_LEMBANG","GH BANTAENG - OUT_ONTO","BINATANG","ULAR KENA JTM","T",1.8,7],[25,"SINJAI","P_TIELINE TANGKA","REC_GUNUNG PERAK","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.3,45],[26,"PANRITA LOPI","P_MATTEKO","GH LOKA - OUT_NENAS","PEKERJAAN PIHAK 3","JERAMI TERBANG TERKENA JTM","T",0.2,20],[26,"SINJAI","P_LITHA","P_LITHA","BINATANG","KUS-KUS DI JUTM","T",3.0,1],[27,"SELAYAR","P_TIELINE BENTENG_SELAYAR","REC_TANABAU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",4.0,5],[27,"SINJAI","P_BONTOBULAENG","REC_MUNTE","PEKERJAAN PIHAK 3","LAYANG-LAYANG DI JTM","T",0.3,20],[27,"SINJAI","P_LITHA","GH SINJAI - OUT_BIKERU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.5,35],[28,"PANRITA LOPI","P_SAPOLOHE","REC_JEMBATAN LEMBANG","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.2,103],[28,"PANRITA LOPI","P_PAJUKUKANG","REC_MARIO RENNU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",0.2,32],[29,"KALUMPANG","P_SAPOLOHE","P_SAPOLOHE","KOMPONEN JTM","ISOLATOR ASPAN FLASHOVER","T",1.6,0],[29,"KALUMPANG","P_SAPOLOHE","P_SAPOLOHE","KOMPONEN JTM","ISOLATOR ASPAN FLASHOVER","T",69.0,0],[30,"JENEPONTO","P_ARUNGKEKE","REC_BONTANG","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",4.7,41],[30,"JENEPONTO","P_PASAR KARISA","P_PASAR KARISA","KOMPONEN JTM","JTM PUTUS","T",4.8,178],[30,"SELAYAR","P_TIELINE BENTENG_SELAYAR","REC_TANABAU","TIDAK JELAS","GANGGUAN BELUM DITEMUKAN","T",4.0,20],[30,"PANRITA LOPI","P_SAPOLOHE","P_SAPOLOHE","KOMPONEN JTM","ISOLATOR FLASHOVER","T",1.5,3]];
+let R=RAW.map(r=>({y:2026,m:9,d:r[0],ulp:r[1],pen:r[2],key:r[3],c:r[4],ket:r[5],j:r[6],min:r[7],kw:r[8]}));
+const BL=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const HR=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+const ACT={
+Vegetasi:{job:'Pemangkasan pohon dan pembersihan ROW',rec:['Pangkas pohon dan dahan dalam jarak aman (minimal 3 m dari JTM) di sepanjang segmen','Tebang pohon rawan tumbang di luar ROW, koordinasikan dengan pemilik lahan','Patroli visual setelah pemangkasan dan catat pohon berisiko untuk siklus berikutnya']},
+Komponen:{job:'Inspeksi thermovisi dan penggantian komponen JTM',rec:['Thermovisi dan inspeksi visual isolator, cross-arm, jumper, dan klem','Ganti isolator pecah, tembus, atau flashover; kencangkan klem dan sambungan yang los kontak','Periksa arrester dan grounding, ukur tahanan pentanahan']},
+Satwa:{job:'Pemasangan pelindung satwa (animal guard)',rec:['Pasang insulating cover atau animal guard pada isolator dan bushing trafo','Pasang bird guard di cross-arm dan bersihkan sarang','Tertibkan pohon buah atau tanaman dekat JTM yang menjadi jalur naik satwa']},
+Layangan:{job:'Sosialisasi layangan dan pembersihan jaringan',rec:['Sosialisasi larangan layangan di dekat JTM ke desa, RT/RW, dan sekolah','Bersihkan sisa rangka dan benang layangan dari traves dan kawat','Patroli sore hari pada segmen yang berulang']},
+'Pihak ketiga':{job:'Koordinasi dan pengawasan pekerjaan pihak ketiga',rec:['Sosialisasi jarak aman JTM kepada warga dan pelaksana pekerjaan (tebang pohon, bangunan, antena)','Pasang rambu atau spanduk jarak aman di titik rawan','Awasi pekerjaan di bawah atau dekat JTM, minta pemberitahuan sebelum kerja']},
+'Belum ditemukan':{job:'Patroli detail dan thermovisi segmen',rec:['Patroli detail dan thermovisi seluruh segmen untuk mencari hotspot','Periksa arrester, FCO, isolator, dan trafo distribusi di segmen','Uji setelan dan koordinasi proteksi (GFR/OCR, recloser)','Pasang fault indicator untuk mempercepat lokalisasi gangguan']}};
+const ORD=['Vegetasi','Komponen','Satwa','Layangan','Pihak ketiga','Belum ditemukan'];
+function cat(c,k){if(/LAYANG/.test(c+k))return'Layangan';if(c=='POHON')return'Vegetasi';if(c=='BINATANG')return'Satwa';if(/KOMPONEN|PERALATAN|TIANG/.test(c))return'Komponen';if(/PIHAK/.test(c))return'Pihak ketiga';return'Belum ditemukan'}
+const esc=s=>String(s).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+const $=id=>document.getElementById(id);
+function plan(){
+ const [y,m]=$('mo').value.split('-').map(Number),tim=+$('tim').value||1,uf=$('ulp').value;
+ const rows=R.filter(r=>r.y==y&&r.m==m&&(uf=='ALL'||r.ulp==uf));
+ const g={};
+ rows.forEach(r=>{const k=r.ulp+'|'+r.key;const o=g[k]=g[k]||{ulp:r.ulp,key:r.key,pen:r.pen,n:0,p:0,kw:0,min:0,cs:{},kt:{}};
+  o.n++;if(r.j=='P')o.p++;o.kw=Math.max(o.kw,r.kw);o.min+=r.min;const c=cat(r.c,r.ket);o.cs[c]=(o.cs[c]||0)+1;if(r.ket)o.kt[r.ket]=1});
+ const items=Object.values(g).map(o=>{
+  o.cat=ORD.slice().sort((a,b)=>(o.cs[b]||0)-(o.cs[a]||0))[0];
+  o.score=+(o.n+2*o.p+Math.min(o.kw/60,2)+(o.min>=30?1:0)).toFixed(1);
+  o.lv=o.score>=8?'K':o.score>=4?'T':'S';
+  const r=ACT[o.cat].rec.slice();
+  Object.keys(o.cs).filter(c=>c!=o.cat).forEach(c=>r.push('Tambahan ('+c.toLowerCase()+', '+o.cs[c]+'x): '+ACT[c].job.toLowerCase()));
+  if(/^REC_/.test(o.key)&&o.n>=5)r.push('Evaluasi setelan recloser dan koordinasi dengan relay penyulang GI (kurva, jumlah reclose)');
+  if(o.p>0)r.push('Siapkan material cadangan dan evaluasi segmentasi LBS/sectionalizer agar isolasi gangguan permanen lebih cepat');
+  o.rec=r;return o}).sort((a,b)=>b.score-a.score);
+ const sched=items.filter(o=>o.score>=3),watch=items.filter(o=>o.score<3);
+ const ty=m==12?y+1:y,tm=m%12,nd=new Date(Date.UTC(ty,tm+1,0)).getUTCDate(),wd=[];
+ for(let d=1;d<=nd;d++)if(new Date(Date.UTC(ty,tm,d)).getUTCDay()!=0)wd.push(d);
+ const cnt={};
+ sched.forEach(o=>{const k=cnt[o.ulp]=(cnt[o.ulp]||0);const i=Math.floor(k/tim);o.day=wd[Math.min(i,wd.length-1)];o.over=i>=wd.length;cnt[o.ulp]++});
+ return{rows,items,sched,watch,ty,tm,y,m}}
+function render(){
+ const P=plan(),tab=document.querySelector('[aria-selected=true]').dataset.t,perm=P.rows.filter(r=>r.j=='P').length;
+ $('kpi').innerHTML=[[P.rows.length,'gangguan '+BL[P.m-1]+' '+P.y],[perm,'gangguan permanen'],[P.items.filter(o=>o.n>=3).length,'titik berulang (3x atau lebih)'],[P.sched.length,'pekerjaan dijadwalkan '+BL[P.tm]]].map(a=>'<div><b>'+a[0]+'</b><span>'+a[1]+'</span></div>').join('');
+ const V=$('v');
+ if(!P.rows.length){V.innerHTML='<div class="empty">Tidak ada gangguan pada bulan dan ULP yang dipilih.</div>';return}
+ const lv={K:'Kritis',T:'Tinggi',S:'Sedang'};
+ const dasar=o=>o.n+' trip'+(o.p?', '+o.p+' permanen':'')+(o.kw?', beban '+o.kw+' kW':'');
+ if(tab=='j'){
+  const s=P.sched.slice().sort((a,b)=>a.day-b.day||b.score-a.score);let h='',wk=-1;
+  s.forEach(o=>{const dow=new Date(Date.UTC(P.ty,P.tm,o.day)).getUTCDay(),w=Math.ceil((o.day+new Date(Date.UTC(P.ty,P.tm,1)).getUTCDay())/7);
+   if(w!=wk){wk=w;h+='<tr class="wk"><td colspan="5">Minggu '+w+'</td></tr>'}
+   h+='<tr><td>'+HR[dow]+', '+o.day+' '+BL[P.tm].slice(0,3)+(o.over?' <span class="mt">(kapasitas penuh)</span>':'')+'</td><td>'+esc(o.ulp)+'</td><td><b>'+esc(o.key)+'</b><div class="mt">'+esc(o.pen)+'</div></td><td>'+ACT[o.cat].job+'</td><td><span class="b '+o.lv+'">'+lv[o.lv]+'</span><div class="mt">'+dasar(o)+'</div></td></tr>'});
+  V.innerHTML='<div class="w"><table><thead><tr><th>Tanggal</th><th>ULP</th><th>Lokasi</th><th>Pekerjaan</th><th>Prioritas dan dasar</th></tr></thead><tbody>'+h+'</tbody></table></div><button id="cp" class="p">Salin jadwal ke Excel</button> <button onclick="print()">Cetak</button>'+
+  (P.watch.length?'<p class="note">'+P.watch.length+' titik lain hanya satu atau dua gangguan sementara dan tidak dijadwalkan. Pantau pada patroli rutin: '+P.watch.slice(0,6).map(o=>esc(o.key)).join(', ')+(P.watch.length>6?', dan lainnya.':'.')+'</p>':'');
+  $('cp').onclick=()=>{const t=['Tanggal\tULP\tPenyulang\tKeypoint\tPekerjaan\tPrioritas\tDasar'].concat(s.map(o=>[o.day+' '+BL[P.tm]+' '+P.ty,o.ulp,o.pen,o.key,ACT[o.cat].job,lv[o.lv],dasar(o)].join('\t'))).join('\n');
+   const f=()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()};
+   (navigator.clipboard?navigator.clipboard.writeText(t).catch(f):Promise.resolve(f())).then(()=>{$('cp').textContent='Tersalin. Tempel di Excel'})}
+ }else if(tab=='r'){
+  V.innerHTML=P.items.filter(o=>o.score>=3).map(o=>'<details><summary><span class="b '+o.lv+'">'+lv[o.lv]+'</span><b>'+esc(o.key)+'</b><span class="mt">'+esc(o.ulp)+' · '+esc(o.pen)+' · '+dasar(o)+'</span></summary><p class="mt" style="margin:0 0 6px">Penyebab dominan: '+o.cat.toLowerCase()+(Object.keys(o.kt).length?'. Temuan: '+esc(Object.keys(o.kt).slice(0,3).join('; ').toLowerCase()):'')+'</p><ul>'+o.rec.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></details>').join('')||'<div class="empty">Belum ada titik yang memenuhi ambang jadwal.</div>'
+ }else{
+  const c={};P.rows.forEach(r=>{const k=cat(r.c,r.ket);c[k]=(c[k]||0)+1});const mx=Math.max(...Object.values(c));
+  const u={};P.rows.forEach(r=>{u[r.ulp]=(u[r.ulp]||0)+1});
+  V.innerHTML='<div class="w" style="padding:8px 14px"><div class="bars">'+Object.entries(c).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'<div><span>'+k+'</span><i style="width:'+v/mx*100+'%"></i><b>'+v+'</b></div>').join('')+'</div></div><div class="w"><table style="min-width:0"><thead><tr><th>ULP</th><th>Gangguan</th><th>Permanen</th></tr></thead><tbody>'+Object.entries(u).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'<tr><td>'+esc(k)+'</td><td>'+v+'</td><td>'+P.rows.filter(r=>r.ulp==k&&r.j=='P').length+'</td></tr>').join('')+'</tbody></table></div>'}
+ $('nt').textContent='Dasar perhitungan: skor = jumlah trip + 2 x trip permanen + faktor beban padam + faktor durasi. Kritis jika skor 8 atau lebih, tinggi 4 atau lebih, sedang 3 atau lebih. Hanya gangguan dengan jenis temporer atau permanen yang dihitung; MLS pembangkit, manuver, dan pekerjaan terencana dikeluarkan.'}
+function init(keep){
+ const ms=[...new Set(R.map(r=>r.y*100+r.m))].sort(),cnt=k=>R.filter(r=>r.y*100+r.m==k).length;
+ let def=ms.filter(k=>cnt(k)>=30).pop()||ms.pop();
+ $('mo').innerHTML=ms.map(k=>'<option value="'+Math.floor(k/100)+'-'+k%100+'"'+(k==def?' selected':'')+'>'+BL[k%100-1]+' '+Math.floor(k/100)+' ('+cnt(k)+')</option>').join('');
+ $('ulp').innerHTML='<option value="ALL">Semua ULP</option>'+[...new Set(R.map(r=>r.ulp))].sort().map(u=>'<option>'+esc(u)+'</option>').join('');render()}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x==b));render()});
+['mo','tim','ulp'].forEach(i=>$(i).onchange=render);
+$('up').onchange=e=>{const f=e.target.files[0];if(!f)return;$('v').innerHTML='<div class="empty">Membaca file, mohon tunggu (file besar bisa sampai satu menit)...</div>';
+ f.arrayBuffer().then(b=>{const wb=XLSX.read(b,{type:'array',sheets:'DATA'});const ws=wb.Sheets.DATA;if(!ws)throw'Sheet DATA tidak ditemukan';
+  const a=XLSX.utils.sheet_to_json(ws,{raw:true,defval:null}),H={};Object.keys(a[0]||{}).forEach(k=>H[k.replace(/\s+/g,' ').trim()]=k);
+  const out=[];a.forEach(x=>{const jg=x[H['JENIS GANGGUAN']],t=x[H['TANGGAL']];if(!jg||typeof t!='number')return;
+   const dt=new Date(Math.round((t-25569)*864e5)),lp=x[H['LAMA PADAM']],bp=+x[H['BEBAN PADAM']];
+   out.push({y:dt.getUTCFullYear(),m:dt.getUTCMonth()+1,d:dt.getUTCDate(),ulp:x[H['ULP']]||'-',pen:x[H['PENYULANG']]||'-',key:x[H['KEYPOINT']]||'-',c:String(x[H['PENYEBAB PADAM']]||''),ket:String(x[H['KETERANGAN']]||'').slice(0,60),j:String(jg)[0],min:typeof lp=='number'?lp*1440:0,kw:isNaN(bp)?0:bp})});
+  if(!out.length)throw'Tidak ada baris gangguan';R=out;init()}).catch(err=>{$('v').innerHTML='<div class="empty">Gagal membaca file: '+esc(err)+'. Pastikan file berisi sheet DATA dengan kolom TANGGAL, KEYPOINT, PENYEBAB PADAM, dan JENIS GANGGUAN.</div>'})};
+init();
+</script></body></html>
